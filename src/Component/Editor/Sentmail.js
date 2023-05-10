@@ -11,7 +11,7 @@ const Sentmail = () => {
   useEffect(() => {
     (async () => {
       await fetch(
-        `https://mail-box-d0a50-default-rtdb.firebaseio.com//${userData.localId}/mailSent.json`
+        `https://mail-box-d0a50-default-rtdb.firebaseio.com/${userData.localId}/mailSent.json`
       )
         .then((res) => {
           if (res.ok) {
@@ -24,7 +24,7 @@ const Sentmail = () => {
         .catch((err) => console.log(err));
     })();
     return () => {};
-  }, []);
+  }, [userData.toggle]);
   let key;
   if (userData.mailDataSent) {
     key = Object.keys(userData.mailDataSent);
@@ -68,22 +68,7 @@ const Sentmail = () => {
 
           <div className="col-md-6 search-form">
             <form action="#" className="text-right">
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control input-sm"
-                  placeholder="Search"
-                />
-                <span className="input-group-btn">
-                  <button
-                    type="submit"
-                    name="search"
-                    className="btn btn-primary"
-                  >
-                    <i className="fa fa-search"></i>
-                  </button>
-                </span>
-              </div>
+              <div className="input-group"></div>
             </form>
           </div>
         </div>

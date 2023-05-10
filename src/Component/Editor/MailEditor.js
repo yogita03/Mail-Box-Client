@@ -39,7 +39,9 @@ const MailEditor = () => {
             return res.json().then((data)=>window.alert(data.error.message))
           }
     })
-    .then(res=>window.alert('Mail Has Been Set Successfully !!'))
+    .then(res=>{
+     
+      window.alert('Mail Has Been Set Successfully !!')})
     .catch(err=>console.log('Error'+err))
 
     await fetch(`https://mail-box-d0a50-default-rtdb.firebaseio.com/${userData.localId}/mailRecived.json`,{
