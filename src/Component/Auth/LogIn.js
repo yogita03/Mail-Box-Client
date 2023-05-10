@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import classes from './Login.module.css'
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Login = () => {
-//   const navigate = useNavigate()
+  const navigate = useNavigate()
  const [ toggle , setToggle] = useState(false)
  const [enterName , setEnterName] = useState('')
  const [enteremail , setEnterEmail] = useState('')
@@ -32,9 +33,9 @@ setToggle(!toggle)
         }
       }).then((res)=>{
         console.log(res)
-       
+       window.localStorage.setItem('token',res.idToken)
         window.alert('LogIn Successful !!!')
-        // navigate('/home')
+        navigate('/home')
       })
     
     }else{
@@ -54,8 +55,9 @@ setToggle(!toggle)
         }
       }).then((res)=>{
         console.log(res)
+        window.localStorage.setItem('token',res.idToken)
         window.alert('Sing Up successfull !!!')
-        // navigate('/home')
+        navigate('/home')
       })
     }
       
@@ -79,27 +81,24 @@ setToggle(!toggle)
                     {toggle ? <div className="d-flex flex-row align-items-center mb-4">
                       <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div className="form-outline flex-fill mb-0">
-                      <label className="form-label" for="form3Example1c">Your Name</label>
                         <input type="text" id="form3Example1c" className="form-control" value={enterName} onChange={(e)=>setEnterName(e.target.value)} required/>
-                        {/* <label className="form-label" for="form3Example1c">Your Name</label> */}
+                        <label className="form-label" for="form3Example1c">Your Name</label>
                       </div>
                     </div> : null}
   
                     <div className="d-flex flex-row align-items-center mb-4">
                       <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div className="form-outline flex-fill mb-0">
-                      <label className="form-label" for="form3Example3c">Your Email</label>
                         <input type="email" id="form3Example3c" className="form-control" value={enteremail} onChange={(e)=>setEnterEmail(e.target.value)} required/>
-                        
+                        <label className="form-label" for="form3Example3c">Your Email</label>
                       </div>
                     </div>
   
                     <div className="d-flex flex-row align-items-center mb-4">
                       <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div className="form-outline flex-fill mb-0">
-                      <label className="form-label" for="form3Example4c">Password</label>
                         <input type="password" id="form3Example4c" className="form-control" value={enterpassword} onChange={(e)=>setEnterPassword(e.target.value)} required />
-                       
+                        <label className="form-label" for="form3Example4c">Password</label>
                       </div>
                     </div>
                     { !toggle ? 
@@ -122,13 +121,9 @@ setToggle(!toggle)
                 </div>
                 <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
   
-                  {/* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" */}
-                    {/* className="img-fluid" alt="Sample image"/> */}
-               
-                {/* <img src="https://previews.123rf.com/images/nattyblissful/nattyblissful2007/nattyblissful200700030/156987082-man-with-key-near-computer-and-account-login-and-password-vector-male-character-design-concept-for.jpg" ></img> */}
-                    {/* {/* className="img-fluid" alt="Sample image"/> */}
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                    className="img-fluid" alt="Sample image"/>
   
-                      
                 </div>
               </div>
             </div>
