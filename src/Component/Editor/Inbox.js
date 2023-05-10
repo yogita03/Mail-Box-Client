@@ -24,7 +24,7 @@ const Inbox = () => {
       })
       .then((res) => dispatch(userAction.mailDataRecivedUpdater(res)))
       .catch((err) => console.log(err));
-  }, 20000);
+  }, 2000);
 
   let key;
   if (userData.mailDataRecived) {
