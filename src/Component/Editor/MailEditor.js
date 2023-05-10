@@ -6,22 +6,28 @@ import { useSelector } from 'react-redux';
 
 const MailEditor = () => {
     const userData = useSelector(state=>state.user)
-    console.log(userData)
+    // console.log(userData)
     const _contentState = ContentState.createFromText('Sample content state');
   const raw = convertToRaw(_contentState);  // RawDraftContentState JSON
   const [contentState, setContentState] = useState(raw); // ContentState JSON
 //   console.log(contentState.blocks[0].text)
   const [toSender , setTosender] = useState('');
   const [ subject , setSubject] = useState('')
-    
+  
+  const date = new Date()
+  const hr = date.getHours()
+  const min = date.getMinutes();
+  
+  
  const sendHandler =async(e)=>{
     e.preventDefault();
-    await fetch(`https://mail-box-d0a50-default-rtdb.firebaseio.com/${userData.localId}/sent.json`,{
+    await fetch(`https://mail-box-d0a50-default-rtdb.firebaseio.com/${userData.localId}/mailSent.json`,{
         method:'POST',
         body:JSON.stringify({
             sentTo:toSender,
             subject:subject,
-            text:contentState.blocks[0].text
+            text:contentState.blocks[0].text,
+            time:`${hr} : ${min}`,
         }),
         headers:{
             'Content-Type': 'application/json'
@@ -33,8 +39,28 @@ const MailEditor = () => {
             return res.json().then((data)=>window.alert(data.error.message))
           }
     })
-    .then(res=>console.log(res))
-    .catch(err=>console.log(err))
+    .then(res=>window.alert('Mail Has Been Set Successfully !!'))
+    .catch(err=>console.log('Error'+err))
+
+    await fetch(`https://mail-box-d0a50-default-rtdb.firebaseio.com/${userData.localId}/mailRecived.json`,{
+        method:'POST',
+        body:JSON.stringify({
+            sentTo:toSender,
+            subject:subject,
+            text:contentState.blocks[0].text,
+            time:`${hr} : ${min}`,
+            read:false
+        }),
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    }).then((res)=>{
+        if(res.ok){
+            return res.json()
+          }else{
+            return res.json().then((data)=>window.alert(data.error.message))
+          }
+    })
     
  }
 
